@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/management/base_layout}">
+<head>
+    <title>[관리자 전용] - 브랜드 요청 정보</title>
+
+    <!-- CSS -->
+    <th:block layout:fragment="css">
+        <link th:href="@{/css/management/brand_request.css}" rel="stylesheet">
+    </th:block>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <form id="detailForm" method="post">
+            <div class="text-center">
+                <img class="border border-dark padding-all-2 br-image" th:src="${brandRequest.imagePath}" alt="요청 이미지">
+            </div>
+            <div class="main-card my-3 card">
+                <div class="card-header fw-bold" th:text="${brandRequest.title}">요청 제목</div>
+                <div class="card-body">
+                    <p class="ws-break-spaces" th:text="${brandRequest.content}">요청 내용</p>
+                </div>
+                <div class="d-block text-end card-footer">
+                    <div class="d-flex justify-content-end">
+                        <select class="form-select me-3 width-100" aria-label="Brand request state select" name="stateCode">
+                            <th:block th:each="state : ${T(com.comeandsee.brandscan.enums.BrandRequestState).values()}">
+                                <option th:value="${state.code}" th:text="${state.displayName}"
+                                        th:selected="${brandRequest.state.code == state.code}">상태값</option>
+                            </th:block>
+                        </select>
+                        <a type="button" class="btn btn-secondary btn-lg me-1" role="button" th:href="@{/management/brand_request/list}">취소</a>
+                        <button type="button" class="btn btn-success btn-lg" th:onclick="onBrandRequestStateUpdateClick()">저장</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </th:block>
+
+    <!-- Scripts -->
+    <th:block layout:fragment="scripts">
+        <script th:src="@{/js/management/brand_request.js}"></script>
+    </th:block>
+</body>
+</html>
