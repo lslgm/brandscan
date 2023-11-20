@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>스캔 결과 페이지</title>
+    <th:block layout:fragment="css">
+        <link th:href="@{/css/result/result.css}" rel="stylesheet">
+    </th:block>
+    <th:block layout:fragment="script"></th:block>
+</head>
+<body>
+    <h2>스캔 결과 확인</h2>
+    <div class="card-hover">
+        <div class="card-hover__content">
+            <!--브랜드가 등록되어 있을 시-->
+            <h3 class="card-hover__title" th:unless="${brandDTO.logo==null}">
+                당신의 브랜드는 <span th:text="${brandDTO.name}"></span> 입니다.
+            </h3>
+
+            <!--브랜드가 등록되어 있지 않을 시-->
+            <h3 class="card-hover__title" th:if="${brandDTO.logo==null}">
+                등록되지 않은 브랜드 입니다.
+            </h3>
+            <!--브랜드가 등록되어 있을 시-->
+            <p class="card-hover__text" th:unless="${brandDTO.logo==null}">
+                당신이 찾으시는 브랜드는 <span th:text="${brandDTO.name}"></span>로 판단 됩니다.
+            </p>
+            <p class="card-hover__text" th:unless="${brandDTO.logo==null}">
+                맞았다면 상세 보기를 통해 브랜드의 상세한 정보를 확인하세요.
+            </p>
+
+            <!--브랜드가 등록되어 있지 않을 시-->
+            <p class="card-hover__text" th:if="${brandDTO.logo==null}">
+                당신이 찾으시는 브랜드는 저희 서비스에 등록되지 않은 브랜드입니다.
+            </p>
+            <p class="card-hover__text" th:if="${brandDTO.logo==null}">
+                요청하기를 클릭하셔서 브랜드 추가를 요청하시거나 다른 이미지를 등록 바랍니다.
+            </p>
+
+            <!--브랜드가 등록되어 있을 시-->
+            <a th:href="@{/brand/detail(id=${brandDTO.id})}" class="card-hover__link" th:unless="${brandDTO.logo==null}">
+                <span>상세정보 보기</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
+
+            <!--브랜드가 등록되어 있지 않을 시-->
+            <a th:href="@{/brand/request}" class="card-hover__link" th:if="${brandDTO.logo==null}">
+                <span>요청하기</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
+
+
+            <a th:href="@{/}" class="card-hover__links" >
+                <span>대문 페이지 이동</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
+
+
+        </div>
+        <div class="card-hover__extra" th:unless="${brandDTO.logo==null}">
+            <h4>당신이 모르던 <span>브랜드 정보</span>를 알아보세요. <span>새로운</span>정보를 찾을 수도 있습니다.!</h4>
+        </div>
+
+        <div class="card-hover__extra" th:if="${brandDTO.logo==null}">
+            <h4>찾으시는 <span>브랜드 정보</span>를 알고 싶으시다면 <span>요청하기</span>를 통해 브랜드 추가를 요청하세요.</h4>
+        </div>
+
+
+        <img class="seleteimg" th:src="|/images/brandlogo/@{${brandDTO.logo}}|" alt="" th:unless="${brandDTO.logo==null}">
+
+        <img th:if="${brandDTO.logo==null}" src="/images/noimg.jpg" class="noimg">
+    </div>
+</body>
+</html>
