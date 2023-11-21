@@ -1,17 +1,23 @@
 package com.comeandsee.brandscan.controller;
 
+import com.comeandsee.brandscan.dto.BrandDTO;
 import com.comeandsee.brandscan.dto.BrandRequestDTO;
 import com.comeandsee.brandscan.dto.PageDTO;
 import com.comeandsee.brandscan.service.BrandRequestService;
+import com.comeandsee.brandscan.service.BrandService;
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static com.comeandsee.brandscan.constants.ManagementConstant.*;
 
@@ -19,13 +25,22 @@ import static com.comeandsee.brandscan.constants.ManagementConstant.*;
 @RequestMapping(value = MANAGEMENT_BASE_URL)
 @Controller
 public class ManagementController {
+    private final BrandService brandService;
     private final BrandRequestService brandRequestService;
 
     @Autowired
-    public ManagementController(BrandRequestService brandRequestService) {
+    public ManagementController(BrandService brandService, BrandRequestService brandRequestService) {
+        this.brandService = brandService;
         this.brandRequestService = brandRequestService;
     }
 
+    // Main
+    @GetMapping()
+    public String managementView() {
+        return "redirect:" + MANAGEMENT_BASE_URL + "/" + MANAGEMENT_BRAND_LIST_URL;
+    }
+
+    // Brand Request
     @GetMapping(value = MANAGEMENT_BRAND_REQUEST_LIST_URL)
     public String brandRequestView(@PageableDefault(page = 1) Pageable pageable, Model model) {
         PageDTO<BrandRequestDTO> brandRequestPage = brandRequestService.findAllWithPage(pageable);
@@ -46,5 +61,59 @@ public class ManagementController {
     public String brandRequestUpdateProcess(Long id, int stateCode) {
         brandRequestService.saveStateById(id, stateCode);
         return "redirect:" + MANAGEMENT_BASE_URL + "/" + MANAGEMENT_BRAND_REQUEST_LIST_URL;
+    }
+
+    // Brand
+    @GetMapping(value = MANAGEMENT_BRAND_LIST_URL)
+    public String brandListView(@PageableDefault(page = 1) Pageable pageable, Model model) {
+        PageDTO<BrandDTO> brandPage = brandService.findAllWithPage(pageable);
+
+        model.addAttribute("brandPage", brandPage);
+        return MANAGEMENT_BRAND_LIST_VIEW;
+    }
+
+    @GetMapping(value = MANAGEMENT_BRAND_REGISTER_URL)
+    public String brandRegisterView(Model model) {
+        model.addAttribute("brand", new BrandDTO());
+        return MANAGEMENT_BRAND_REGISTER_VIEW;
+    }
+
+    @PostMapping(value = MANAGEMENT_BRAND_REGISTER_URL)
+    public String brandRegisterProcess(
+            @Valid @ModelAttribute("brand") BrandDTO brandDTO,
+            BindingResult bindingResult)
+    {
+        if (bindingResult.hasErrors()) {
+            return MANAGEMENT_BRAND_REGISTER_VIEW;
+        }
+
+        brandService.register(brandDTO);
+        return "redirect:" + MANAGEMENT_BASE_URL + "/" + MANAGEMENT_BRAND_LIST_URL;
+    }
+
+    @GetMapping(value = MANAGEMENT_BRAND_DETAIL_URL)
+    public String brandDetailView(Long id, Model model) {
+        BrandDTO brand = brandService.findById(id);
+
+        model.addAttribute("brand", brand);
+        return MANAGEMENT_BRAND_DETAIL_VIEW;
+    }
+
+    @PostMapping(value = MANAGEMENT_BRAND_DETAIL_URL)
+    public String brandDetailProcess(
+            @Valid @ModelAttribute("brand") BrandDTO brandDTO,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes)
+    {
+        if (bindingResult.hasErrors()) {
+            return MANAGEMENT_BRAND_DETAIL_VIEW;
+        }
+
+        BrandDTO brand = brandService.updateById(brandDTO);
+        redirectAttributes.addAttribute("id", brand.getId());
+        redirectAttributes.addFlashAttribute("message", BRAND_UPDATE_SUCCESS_MESSAGE);
+        redirectAttributes.addFlashAttribute("redirectUrl", MANAGEMENT_BRAND_LIST_URL);
+
+        return "redirect:" + MANAGEMENT_BASE_URL + "/" + MANAGEMENT_BRAND_DETAIL_URL;
     }
 }

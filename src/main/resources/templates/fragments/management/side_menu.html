@@ -3,22 +3,22 @@
 <th:block th:fragment="side_menu">
     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
         <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-            <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <a th:href="@{/management}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <span class="fs-5 d-none d-sm-inline">Brand Scan</span>
             </a>
             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                 <li>
-                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
                         <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">브랜드 관리</span>
                     </a>
                     <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                         <li class="w-100">
-                            <a href="#" class="nav-link px-0">
+                            <a th:href="@{/management/brand/list}" class="nav-link px-0 text-white">
                                 <span class="d-none d-sm-inline">브랜드</span>
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/management/brand_request/list}" class="nav-link px-0">
+                            <a th:href="@{/management/brand_request/list}" class="nav-link px-0 text-white">
                                 <span class="d-none d-sm-inline">브랜드 요청</span>
                             </a>
                         </li>

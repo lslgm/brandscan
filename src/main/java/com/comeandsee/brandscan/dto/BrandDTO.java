@@ -1,19 +1,22 @@
 package com.comeandsee.brandscan.dto;
 
 
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+import static com.comeandsee.brandscan.constants.ManagementConstant.BRAND_NAME_VALIDATION_MESSAGE;
+
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
-@Builder
 public class BrandDTO {
     private Long id; //브랜드 id
 
+    @NotBlank(message = BRAND_NAME_VALIDATION_MESSAGE)
     private String name; //브랜드 명
 
     private String description; //브랜드 설명
@@ -28,7 +31,7 @@ public class BrandDTO {
 
     private String building; //본사 건물
 
-    private LocalDateTime created; //등록일
+    private LocalDateTime createdAt; //등록일
 
-    private LocalDateTime updated; //수정일
+    private LocalDateTime updatedAt; //수정일
 }

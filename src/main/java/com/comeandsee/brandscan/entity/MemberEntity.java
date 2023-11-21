@@ -6,9 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import static com.comeandsee.brandscan.constants.ManagementConstant.MEMBER_TABLE_NAME;
+
 @Getter
 @Entity
-@Table(name = "member_tbl")
+@Table(name = MEMBER_TABLE_NAME)
 @ToString
 public class MemberEntity extends BaseEntity{
     @Id

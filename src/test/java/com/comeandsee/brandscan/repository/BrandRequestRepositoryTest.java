@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class BrandRequestTest {
+public class BrandRequestRepositoryTest {
     @Autowired
     private BrandRequestRepository repository;
 

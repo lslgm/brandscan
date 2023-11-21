@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/management/base_layout}">
+<head>
+    <title>[관리자 전용] - 브랜드 정보</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <form id="updateForm" th:action="@{/management/brand/detail}" method="post" th:object="${brand}">
+        <div class="card">
+            <div class="card-header bg-success d-flex align-items-center justify-content-between">
+                <h4 class="card-title text-white">브랜드 정보</h4>
+                <div class="d-flex flex-column">
+                    <span class="text-white" th:text="|수정일 : ${#temporals.format(brand.updatedAt, 'yyyy-MM-dd HH:mm:ss')}|">수정일</span>
+                    <span class="text-white" th:text="|작성일 : ${#temporals.format(brand.createdAt, 'yyyy-MM-dd HH:mm:ss')}|">작성일</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group margin-bottom-1rem">
+                    <label class="fw-bold margin-bottom-dot5rem" for="nameInput">브랜드명</label>
+                    <input type="text" class="form-control box-shadow-inset-transparent" id="nameInput"
+                           placeholder="Enter brand name" th:field="*{name}">
+                    <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">브랜드명 입력 오류</p>
+                </div>
+                <div class="form-group margin-bottom-1rem">
+                    <label class="fw-bold margin-bottom-dot5rem" for="descriptionTextArea">브랜드 설명</label>
+                    <textarea class="form-control box-shadow-inset-transparent" placeholder="Leave a comment here"
+                              id="descriptionTextArea" th:field="*{description}"></textarea>
+                </div>
+                <div class="form-group margin-bottom-1rem">
+                    <label class="fw-bold margin-bottom-dot5rem" for="establishYearInput">설립연도</label>
+                    <input type="number" class="form-control box-shadow-inset-transparent" id="establishYearInput"
+                           placeholder="ex)2023" th:field="*{year}">
+                </div>
+                <div class="form-group margin-bottom-1rem">
+                    <label class="fw-bold margin-bottom-dot5rem" for="homePageInput">홈페이지</label>
+                    <input type="text" class="form-control box-shadow-inset-transparent" id="homePageInput"
+                           placeholder="http://" th:field="*{homepage}">
+                </div>
+                <div class="form-group margin-bottom-1rem">
+                    <label class="fw-bold margin-bottom-dot5rem" for="addressInput">주소</label>
+                    <input type="text" class="form-control box-shadow-inset-transparent" id="addressInput"
+                           placeholder="Enter company address" th:field="*{address}">
+                </div>
+                <!-- Fix me : 이미지는 주소로? 파일로? -->
+                <div class="form-group margin-bottom-1rem">
+                    <label class="fw-bold margin-bottom-dot5rem" for="logoInput">로고 이미지</label>
+                    <input type="text" class="form-control box-shadow-inset-transparent" id="logoInput"
+                           placeholder="http://" th:field="*{logo}">
+                </div>
+                <!-- Fix me : 이미지는 주소로? 파일로? -->
+                <div class="form-group margin-bottom-1rem">
+                    <label class="fw-bold margin-bottom-dot5rem" for="buildingInput">본사 건물 이미지</label>
+                    <input type="text" class="form-control box-shadow-inset-transparent" id="buildingInput"
+                           placeholder="http://" th:field="*{building}">
+                </div>
+            </div>
+            <div class="card-footer">
+                <input type="hidden" th:field="*{id}">
+                <button type="button" class="btn btn-success" th:onclick="onBrandUpdateClick()">수정</button>
+                <button type="button" class="btn btn-danger" th:onclick="onBrandDeleteClick()">삭제</button>
+                <a type="button" class="btn btn-secondary" role="button" th:href="@{/management/brand/list}">취소</a>
+            </div>
+        </div>
+    </form>
+</th:block>
+<th:block layout:fragment="scripts">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const message = [[${message}]]
+        if (message != null && message.length > 0) {
+            alert(message);
+        }
+        /*]]>*/
+    </script>
+    <script th:src="@{/js/management/brand.js}"></script>
+</th:block>
+</body>
+</html>

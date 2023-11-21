@@ -2,10 +2,26 @@
     width: 100px;
 }
 
+.width-10p {
+    width: 10%;
+}
+
 .ws-break-spaces {
     white-space: break-spaces;
 }
 
 .padding-all-2 {
     padding: 2px;
+}
+
+.margin-bottom-1rem {
+    margin-bottom: 1rem;
+}
+
+.margin-bottom-dot5rem {
+    margin-bottom: 0.5rem;
+}
+
+.box-shadow-inset-transparent {
+    box-shadow: inset 0 0 0 transparent;
 }

@@ -1,6 +1,6 @@
 package com.comeandsee.brandscan.entity;
 
-import com.comeandsee.brandscan.converter.BrandRequestConverter;
+import com.comeandsee.brandscan.converter.BrandRequestStateConverter;
 import com.comeandsee.brandscan.enums.BrandRequestState;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -28,7 +28,7 @@ public class BrandRequestEntity extends BaseEntity {
     @Column(nullable = false)
     private String imagePath;   // Info : 배포 후 S3 경로로 바뀌어야 함.
 
-    @Convert(converter = BrandRequestConverter.class)
+    @Convert(converter = BrandRequestStateConverter.class)
     private BrandRequestState state;
 
     @Builder

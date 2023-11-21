@@ -77,7 +77,7 @@
         </div>
 
 
-        <img class="seleteimg" th:src="|/images/brandlogo/@{${brandDTO.logo}}|" alt="" th:unless="${brandDTO.logo==null}">
+        <img class="seleteimg" th:src="@{${brandDTO.logo}}" alt="brand logo" th:unless="${brandDTO.logo==null}">
 
         <img th:if="${brandDTO.logo==null}" src="/images/noimg.jpg" class="noimg">
     </div>

@@ -25,7 +25,7 @@
           <div class="alert alert-success text-center" >
             <strong class="text-center">대표 로고</strong>
           </div>
-          <img th:src="|/images/brandlogo/@{${brandDTO.logo}}|" width="435" height="400">
+          <img th:src="@{${brandDTO.logo}}" width="435" height="400">
 
           <!--문의 게시판 이동-->
           <div class="text-center mt-5">
@@ -39,7 +39,7 @@
           <div class="alert alert-success text-center" >
             <strong class="text-center">본사 건물</strong>
           </div>
-          <img th:src="|/images/building/@{${brandDTO.building}}|" width="435" height="600">
+          <img th:src="@{${brandDTO.building}}" width="435" height="600">
         </div><!--본사 건물 이미지 영역 끝-->
       </div>
     </div><!--로고&빌딩 이미지 영역 끝-->

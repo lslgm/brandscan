@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/management/base_layout}">
+<head>
+    <title>[관리자 전용] - 브랜드 목록</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <a type="button" class="btn btn-primary" role="button" th:href="@{/management/brand/register}">브랜드 등록</a>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">브랜드명</th>
+                    <th scope="col">주소</th>
+                    <th scope="col">홈페이지</th>
+                    <th scope="col" class="width-10p">등록일</th>
+                    <th scope="col" class="width-10p"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="align-middle" th:each="brand : ${brandPage.dataList}">
+                    <th scope="row" th:text="${brand.id}">1</th>
+                    <td th:text="${brand.name}">브랜드명</td>
+                    <td th:text="${brand.address}">주소</td>
+                    <td th:text="${brand.homepage}">홈페이지</td>
+                    <td th:text="${#temporals.format(brand.createdAt, 'yyyy-MM-dd')}">등록일</td>
+                    <td>
+                        <a type="button" class="btn btn-light" role="button"
+                           th:href="@{/management/brand/detail(id=${brand.id})}">상세보기</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${brandPage.hasPrev}">
+                    <a class="page-link"
+                       th:href="@{/management/brand/list(page=${brandPage.pageNumber - 1})}">Previous</a>
+                </li>
+                <th:block th:each="page : ${brandPage.pages}">
+                    <li class="page-item" th:classappend="${brandPage.pageNumber == page} ? 'active'">
+                        <a class="page-link"
+                           th:href="@{/management/brand/list(page=${brandPage.pageNumber})}"
+                           th:text="${page}">1</a>
+                    </li>
+                </th:block>
+                <li class="page-item" th:if="${brandPage.hasNext}">
+                    <a class="page-link"
+                       th:href="@{/management/brand/list(page=${brandPage.pageNumber + 1})}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </th:block>
+</body>
+</html>
