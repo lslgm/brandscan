@@ -7,79 +7,57 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>스캔 결과 페이지</title>
     <th:block layout:fragment="css">
-        <link th:href="@{/css/result/result.css}" rel="stylesheet">
+        <link th:href="@{/css/result/main.css}" rel="stylesheet">
     </th:block>
-    <th:block layout:fragment="script"></th:block>
+
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/result/jquery.min.js}"></script>
+        <script th:src="@{/js/result/util.js}"></script>
+        <script th:src="@{/js/result/main.js}"></script>
+        <script th:src="@{/js/result/jquery.scrolly.min.js}"></script>
+        <script th:src="@{/js/result/browser.min.js}"></script>
+        <script th:src="@{/js/result/breakpoints.min.js}"></script>
+    </th:block>
 </head>
-<body>
-    <h2>스캔 결과 확인</h2>
-    <div class="card-hover">
-        <div class="card-hover__content">
-            <!--브랜드가 등록되어 있을 시-->
-            <h3 class="card-hover__title" th:unless="${brandDTO.logo==null}">
-                당신의 브랜드는 <span th:text="${brandDTO.name}"></span> 입니다.
-            </h3>
-
-            <!--브랜드가 등록되어 있지 않을 시-->
-            <h3 class="card-hover__title" th:if="${brandDTO.logo==null}">
-                등록되지 않은 브랜드 입니다.
-            </h3>
-            <!--브랜드가 등록되어 있을 시-->
-            <p class="card-hover__text" th:unless="${brandDTO.logo==null}">
-                당신이 찾으시는 브랜드는 <span th:text="${brandDTO.name}"></span>로 판단 됩니다.
-            </p>
-            <p class="card-hover__text" th:unless="${brandDTO.logo==null}">
-                맞았다면 상세 보기를 통해 브랜드의 상세한 정보를 확인하세요.
-            </p>
-
-            <!--브랜드가 등록되어 있지 않을 시-->
-            <p class="card-hover__text" th:if="${brandDTO.logo==null}">
-                당신이 찾으시는 브랜드는 저희 서비스에 등록되지 않은 브랜드입니다.
-            </p>
-            <p class="card-hover__text" th:if="${brandDTO.logo==null}">
-                요청하기를 클릭하셔서 브랜드 추가를 요청하시거나 다른 이미지를 등록 바랍니다.
-            </p>
-
-            <!--브랜드가 등록되어 있을 시-->
-            <a th:href="@{/brand/detail(id=${brandDTO.id})}" class="card-hover__link" th:unless="${brandDTO.logo==null}">
-                <span>상세정보 보기</span>
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-            </a>
-
-            <!--브랜드가 등록되어 있지 않을 시-->
-            <a th:href="@{/brand/request}" class="card-hover__link" th:if="${brandDTO.logo==null}">
-                <span>요청하기</span>
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-            </a>
-
-
-            <a th:href="@{/}" class="card-hover__links" >
-                <span>대문 페이지 이동</span>
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-            </a>
-
-
+<body class="is-preload">
+<article id="top" class="wrapper style1">
+    <div class="container">
+        <!--브랜드가 등록되어 있지 않을 시-->
+        <div class="row" th:if="${brandDTO.logo==null}">
+            <div class="col-4 col-5-large col-12-medium">
+							<span class="image fit">
+								<img src="/images/noimg.jpg" >
+							</span>
+            </div>
+            <div class="col-8 col-7-large col-12-medium">
+                <header>
+                    <h3>해당 브랜드는 등록 되지 않은 브랜드 입니다.</h3>
+                </header>
+                <p>브랜드 <strong>등록 요청</strong>을 통해 찾으시는 브랜드의 추가를 요청하세요.</p>
+                <a th:href="@{/brand/request}" class="button large scrolly">브랜드 추가 요청하기</a>
+                <a th:href="@{/}" class="button large scrolly">다른 브랜드 찾기</a>
+            </div>
         </div>
-        <div class="card-hover__extra" th:unless="${brandDTO.logo==null}">
-            <h4>당신이 모르던 <span>브랜드 정보</span>를 알아보세요. <span>새로운</span>정보를 찾을 수도 있습니다.!</h4>
+        <!--브랜드가 등록되어 있울 시-->
+        <div class="row" th:unless="${brandDTO.logo==null}">
+            <div class="col-4 col-5-large col-12-medium">
+							<span class="image fit">
+								<img src="/images/noimg.jpg" >
+							</span>
+            </div>
+            <div class="col-8 col-7-large col-12-medium">
+                <header>
+                    <h2>스캔하신 브랜드는 <strong th:text="${brandDTO.name}"></strong>로 판별 됩니다.</h2>
+                </header>
+                <p>해당 브랜드의 정보가 맞으시면 <strong>상세 정보</strong> 보기를 통해여 브랜드의, 당신이 모르던 브랜드 정보를 알아보세요.</p>
+                <a th:href="@{/brand/detail(id=${brandDTO.id})}" class="button large scrolly">상세 정보 확인하기</a>
+                <a th:href="@{/}" class="button large scrolly">다른 브랜드 찾기</a>
+            </div>
         </div>
-
-        <div class="card-hover__extra" th:if="${brandDTO.logo==null}">
-            <h4>찾으시는 <span>브랜드 정보</span>를 알고 싶으시다면 <span>요청하기</span>를 통해 브랜드 추가를 요청하세요.</h4>
-        </div>
-
-
-        <img class="seleteimg" th:src="@{${brandDTO.logo}}" alt="brand logo" th:unless="${brandDTO.logo==null}">
-
-        <img th:if="${brandDTO.logo==null}" src="/images/noimg.jpg" class="noimg">
     </div>
+</article>
 </body>
 </html>
