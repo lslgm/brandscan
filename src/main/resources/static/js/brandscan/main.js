@@ -38,7 +38,7 @@ function onImageScanClick() {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:5000/v1/object-detection/B",
+        url: "http://localhost:5000/v1/object-detection/brandscan",
         data: data,
         contentType: false,
         processData: false,

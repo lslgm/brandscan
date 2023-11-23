@@ -29,9 +29,9 @@ public class MemberDTO {
 
     private MemberRole state; //회원 유형(일반회원,고객사,관리자)
 
-    private LocalDateTime created; //등록일
+    private LocalDateTime createdAt; //등록일
 
-    private LocalDateTime updated; //수정일
+    private LocalDateTime updatedAt; //수정일
 
     //custom
     private String memberRole; //유저 유형

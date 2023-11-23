@@ -7,7 +7,6 @@ import com.comeandsee.brandscan.enums.BrandRequestState;
 import com.comeandsee.brandscan.repository.BrandRequestRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,22 +16,22 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import static com.comeandsee.brandscan.constants.ManagementConstant.NOT_FOUND_PARAMETER_ERROR_MESSAGE;
 
 @Service
 public class BrandRequestService {
     private final BrandRequestRepository brandRequestRepository;
     private final ModelMapper modelMapper;
-    private final FileService fileService;
-
-    @Value("${requestPath}")
-    private String requestPath;
+    private final S3Service s3Service;
 
     @Autowired
-    public BrandRequestService(BrandRequestRepository brandRequestRepository, ModelMapper modelMapper, FileService fileService) {
+    public BrandRequestService(BrandRequestRepository brandRequestRepository, ModelMapper modelMapper, S3Service s3Service) {
         this.brandRequestRepository = brandRequestRepository;
         this.modelMapper = modelMapper;
-        this.fileService = fileService;
+        this.s3Service = s3Service;
     }
 
     // 브랜드 요청 목록 조회
@@ -77,23 +76,18 @@ public class BrandRequestService {
     // 브랜드 요청 정보 등록
     @Transactional
     public BrandRequestDTO register(BrandRequestDTO brandRequestDTO, MultipartFile imageFile) throws Exception {
-        String newFileName = "";
+        if (!imageFile.isEmpty()) {
+            String uploadUrl = s3Service.uploadFile(imageFile);
 
-        if (imageFile != null) {
-            String originalFileName = imageFile.getOriginalFilename();
-            newFileName = fileService.uploadFile(
-                    requestPath,
-                    originalFileName,
-                    imageFile.getBytes()
-            );
+            brandRequestDTO.setImagePath(uploadUrl);
+            brandRequestDTO.setState(BrandRequestState.REQUEST);
+
+            BrandRequestEntity requestEntity = modelMapper.map(brandRequestDTO, BrandRequestEntity.class);
+            BrandRequestEntity result = brandRequestRepository.save(requestEntity);
+
+            return modelMapper.map(result, BrandRequestDTO.class);
+        } else {
+            throw new NoSuchElementException(NOT_FOUND_PARAMETER_ERROR_MESSAGE + " : imageFile");
         }
-
-        brandRequestDTO.setImagePath(newFileName);
-        brandRequestDTO.setState(BrandRequestState.REQUEST);
-
-        BrandRequestEntity requestEntity = modelMapper.map(brandRequestDTO, BrandRequestEntity.class);
-        BrandRequestEntity result = brandRequestRepository.save(requestEntity);
-
-        return modelMapper.map(result, BrandRequestDTO.class);
     }
 }

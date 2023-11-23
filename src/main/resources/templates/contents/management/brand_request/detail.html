@@ -16,7 +16,13 @@
                 <img class="border border-dark padding-all-2 br-image" th:src="${brandRequest.imagePath}" alt="요청 이미지">
             </div>
             <div class="main-card my-3 card">
-                <div class="card-header fw-bold" th:text="${brandRequest.title}">요청 제목</div>
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h4 class="card-title" th:text="${brandRequest.title}">요청 제목</h4>
+                    <div class="d-flex flex-column">
+                        <span th:text="|수정일 : ${#temporals.format(brandRequest.updatedAt, 'yyyy-MM-dd HH:mm:ss')}|">수정일</span>
+                        <span th:text="|작성일 : ${#temporals.format(brandRequest.createdAt, 'yyyy-MM-dd HH:mm:ss')}|">작성일</span>
+                    </div>
+                </div>
                 <div class="card-body">
                     <p class="ws-break-spaces" th:text="${brandRequest.content}">요청 내용</p>
                 </div>

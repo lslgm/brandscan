@@ -63,19 +63,7 @@
 }
 
 @media screen and (min-width: 992px) {
-    .main-container {
-        width: 75vw;
-        height: 100%;
-        padding-bottom: 0;
-    }
-
     .main-container .main-content {
         padding: 0 9rem 0 2rem;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .main-container {
-        width: 65vw;
     }
 }

@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
+import static com.comeandsee.brandscan.constants.ManagementConstant.NOT_FOUND_TYPE_ERROR_MESSAGE;
+
 @Getter
 public enum BrandRequestState {
     REQUEST(1, "요청중"),
@@ -22,6 +24,6 @@ public enum BrandRequestState {
         return Arrays.stream(BrandRequestState.values())
                 .filter(value -> value.getCode() == dbData)
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 상태 값입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_TYPE_ERROR_MESSAGE));
     }
 }

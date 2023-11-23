@@ -19,17 +19,18 @@ public class BrandRequestController {
     public BrandRequestController(BrandRequestService requestService) {
         this.requestService = requestService;
     }
+
     //요청사항 작성페이지 이동
     @GetMapping("/brand/request")
     public String requestFrom(Model model){
         model.addAttribute("requestDTO", new BrandRequestDTO());
         return "brand/request";
     }
+
     //요청사항 작성페이지 작성
     @PostMapping("/brand/request")
     public String requestProc(@Valid BrandRequestDTO requestDTO,MultipartFile imgFile,
                               BindingResult bindingResult,Model model) throws Exception {
-
         if (bindingResult.hasErrors()){
             return "brand/request";
         }

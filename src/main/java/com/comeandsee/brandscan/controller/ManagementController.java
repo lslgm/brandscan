@@ -2,9 +2,11 @@ package com.comeandsee.brandscan.controller;
 
 import com.comeandsee.brandscan.dto.BrandDTO;
 import com.comeandsee.brandscan.dto.BrandRequestDTO;
+import com.comeandsee.brandscan.dto.MemberDTO;
 import com.comeandsee.brandscan.dto.PageDTO;
 import com.comeandsee.brandscan.service.BrandRequestService;
 import com.comeandsee.brandscan.service.BrandService;
+import com.comeandsee.brandscan.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,13 @@ import static com.comeandsee.brandscan.constants.ManagementConstant.*;
 public class ManagementController {
     private final BrandService brandService;
     private final BrandRequestService brandRequestService;
+    private final MemberService memberService;
 
     @Autowired
-    public ManagementController(BrandService brandService, BrandRequestService brandRequestService) {
+    public ManagementController(BrandService brandService, BrandRequestService brandRequestService, MemberService memberService) {
         this.brandService = brandService;
         this.brandRequestService = brandRequestService;
+        this.memberService = memberService;
     }
 
     // Main
@@ -115,5 +119,16 @@ public class ManagementController {
         redirectAttributes.addFlashAttribute("redirectUrl", MANAGEMENT_BRAND_LIST_URL);
 
         return "redirect:" + MANAGEMENT_BASE_URL + "/" + MANAGEMENT_BRAND_DETAIL_URL;
+    }
+
+    // Admin member
+    @GetMapping(value = MANAGEMENT_MEMBER_LIST_URL)
+    public String memberAdminListView(String role, @PageableDefault(page = 1) Pageable pageable, Model model) {
+        PageDTO<MemberDTO> memberPage = memberService.findByRoleWithPage(role, pageable);
+
+        model.addAttribute("memberPage", memberPage);
+        model.addAttribute("role", role);
+
+        return MANAGEMENT_MEMBER_LIST_VIEW;
     }
 }
