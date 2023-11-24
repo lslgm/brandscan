@@ -75,7 +75,8 @@ public class BrandRequestService {
 
     // 브랜드 요청 정보 등록
     @Transactional
-    public BrandRequestDTO register(BrandRequestDTO brandRequestDTO, MultipartFile imageFile) throws Exception {
+    public BrandRequestDTO register(BrandRequestDTO brandRequestDTO) throws Exception {
+        MultipartFile imageFile = brandRequestDTO.getImageFile();
         if (!imageFile.isEmpty()) {
             String uploadUrl = s3Service.uploadFile(imageFile);
 

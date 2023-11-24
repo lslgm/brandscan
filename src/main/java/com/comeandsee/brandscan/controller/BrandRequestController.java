@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class BrandRequestController {
@@ -29,12 +29,13 @@ public class BrandRequestController {
 
     //요청사항 작성페이지 작성
     @PostMapping("/brand/request")
-    public String requestProc(@Valid BrandRequestDTO requestDTO,MultipartFile imgFile,
-                              BindingResult bindingResult,Model model) throws Exception {
+    public String requestProc(@Valid @ModelAttribute("requestDTO") BrandRequestDTO requestDTO,
+                              BindingResult bindingResult,
+                              Model model) throws Exception {
         if (bindingResult.hasErrors()){
             return "brand/request";
         }
-        requestService.register(requestDTO, imgFile);
+        requestService.register(requestDTO);
         return "index";
     }
 }

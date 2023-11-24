@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ public class BrandRequestDTO {
 
     // Custom
     private String stateToDisplay;
+    private MultipartFile imageFile;
 
     public void setState(BrandRequestState state) {
         this.state = state;

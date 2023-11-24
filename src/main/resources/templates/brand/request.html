@@ -24,24 +24,16 @@
                         <form th:action="@{/brand/request}" method="post" enctype="multipart/form-data" style="width:500px" th:object="${requestDTO}">
                             <div class="mb-3 mt-3">
                                 <label for="title" class="form-label">제목:</label>
-                                <input type="text" class="form-control" id="title"  name="title" th:field="*{title}">
+                                <input type="text" class="form-control" id="title" th:field="*{title}">
                             </div>
                             <p class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
                             <div class="mb-3">
                                 <label for="content">내용:</label>
-                                <textarea class="form-control" rows="5" id="content" name="content" th:field="*{content}"></textarea>
+                                <textarea class="form-control" rows="5" id="content" th:field="*{content}"></textarea>
                             </div>
                             <div class="form-check mb-3">
                                 <label for="imgPath" class="form-label">파일첨부:</label>
-                                <input type="file" class="form-control" id="imgPath"  name="imgFile" >
-                            </div>
-
-                            <div class="form-check mb-3" hidden>
-                                <label for="status" class="form-label">상태:</label>
-                                <select class="form-select" id="status" name="status">
-                                    <option value="b" selected>처리 전</option>
-                                    <option value="a">처리 완료</option>
-                                </select>
+                                <input type="file" class="form-control" id="imgPath" th:field="*{imageFile}">
                             </div>
                             <button type="submit" class="btn btn-primary">등록</button>
                         </form>
