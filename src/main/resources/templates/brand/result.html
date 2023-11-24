@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -26,9 +28,9 @@
         <!--브랜드가 등록되어 있지 않을 시-->
         <div class="row" th:if="${brandDTO.logo==null}">
             <div class="col-4 col-5-large col-12-medium">
-                <span class="image fit">
-                    <img th:src="@{/images/noimg.jpg}" >
-                </span>
+							<span class="image fit">
+								<img src="/images/noimg.jpg" >
+							</span>
             </div>
             <div class="col-8 col-7-large col-12-medium">
                 <header>
@@ -42,15 +44,15 @@
         <!--브랜드가 등록되어 있울 시-->
         <div class="row" th:unless="${brandDTO.logo==null}">
             <div class="col-4 col-5-large col-12-medium">
-                <span class="image fit">
-                    <img th:src="${brandDTO.logo}" >
-                </span>
+							<span class="image fit">
+								<img src="/images/noimg.jpg" >
+							</span>
             </div>
             <div class="col-8 col-7-large col-12-medium">
                 <header>
                     <h2>스캔하신 브랜드는 <strong th:text="${brandDTO.name}"></strong>로 판별 됩니다.</h2>
                 </header>
-                <p>해당 브랜드의 정보가 맞으시면 <strong>상세 정보</strong> 확인하기를 통하여 당신이 모르던 브랜드 정보를 알아보세요.</p>
+                <p>해당 브랜드의 정보가 맞으시면 <strong>상세 정보</strong> 보기를 통해여 브랜드의, 당신이 모르던 브랜드 정보를 알아보세요.</p>
                 <a th:href="@{/brand/detail(id=${brandDTO.id})}" class="button large scrolly">상세 정보 확인하기</a>
                 <a th:href="@{/}" class="button large scrolly">다른 브랜드 찾기</a>
             </div>
