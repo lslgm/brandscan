@@ -19,17 +19,8 @@
 <body class="is-preload">
 <div id="page-wrapper">
   <!-- Wrapper -->
-  <div id="wrapperstrat">
-    <!-- 로고 & 페이지 간단소개-->
-
-      <div class="image filtered span-1-75 d-flex" >
-        <!--로고 이미지 출력-->
-        <img srcset="/images/1.png" alt=""  loading="lazy" />
-      </div>
-  </div>
-
-
   <div id="wrapper">
+    <!-- 로고 & 페이지 간단소개-->
     <section class="panel banner right">
       <div class="content color0 span-3-75">
         <h1 class="major"><span th:text="${brandDTO.name}"></span> 상세정보</h1>
@@ -41,11 +32,15 @@
           <li><a href="#first" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>
         </ul>
       </div>
+      <div class="image filtered span-1-75" data-position="25% 25%">
+        <!--로고 이미지 출력-->
+        <img th:src="${brandDTO.logo}" alt="로고 이미지" />
+      </div>
     </section>
 
     <!-- Panel (Spotlight) -->
     <section class="panel spotlight medium left" id="first">
-      <div class="content color0 span-6">
+      <div class="content color0 span-7">
         <h2 class="major">브랜드 명: <span th:text="${brandDTO.name}"></span></h2>
         <h4>
           설립 연도 : <span th:text="${brandDTO.year}"></span>년<br/>
@@ -58,7 +53,7 @@
       </div>
       <div class="image filtered tinted" data-position="top right">
         <!--빌딩 이미지 출력-->
-        <img srcset="/images/noimg.jpg" alt=""  loading="lazy"/>
+        <img th:src="${brandDTO.building}" alt="" />
       </div>
     </section>
     <!--&lt;!&ndash; 지도 AIP 추가시 활성화 &ndash;&gt;

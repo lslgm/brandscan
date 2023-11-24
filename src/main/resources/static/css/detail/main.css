@@ -875,8 +875,6 @@ input, select, textarea {
 		display: inline-block;
 		position: relative;
 		border: 0;
-		width: 100%;
-
 	}
 
 		.image.filtered:after {
@@ -1004,8 +1002,6 @@ input, select, textarea {
 
 		.image img {
 			display: block;
-			width: 100%;
-			height: 100%;
 		}
 
 		.image.left, .image.right {
@@ -3302,20 +3298,19 @@ input, select, textarea {
 			-ms-flex-shrink: 0;
 			flex-shrink: 0;
 			position: relative;
-			display: flex;
-			align-items: center;
 		}
 
 			.panel.banner .image img {
 				-moz-object-fit: cover;
 				-webkit-object-fit: cover;
 				-ms-object-fit: cover;
-				object-fit: contain;
+				object-fit: revert;
 				display: block;
-				position: relative;
+				position: absolute;
 				top: 0;
 				left: 0;
 				width: 100%;
+				height: 100%;
 			}
 
 		.panel.banner.left {
@@ -3348,7 +3343,7 @@ input, select, textarea {
 
 		.panel.banner .image {
 			-moz-flex-basis: 40%;
-			-webkit-flex-basis: 80%;
+			-webkit-flex-basis: 40%;
 			-ms-flex-basis: 40%;
 			flex-basis: 40%;
 		}
@@ -3570,30 +3565,6 @@ input, select, textarea {
 	}
 
 /* Wrapper */
-#wrapperstrat {
-	display: -moz-flex;
-	display: -webkit-flex;
-	display: -ms-flex;
-	display: flex;
-	-moz-flex-direction: row;
-	-webkit-flex-direction: row;
-	-ms-flex-direction: row;
-	flex-direction: row;
-	-moz-transition: opacity 1s ease-out, -moz-transform 0.75s ease-out;
-	-webkit-transition: opacity 1s ease-out, -webkit-transform 0.75s ease-out;
-	-ms-transition: opacity 1s ease-out, -ms-transform 0.75s ease-out;
-	transition: opacity 1s ease-out, transform 0.75s ease-out;
-	-moz-transition-delay: 0.25s;
-	-webkit-transition-delay: 0.25s;
-	-ms-transition-delay: 0.25s;
-	transition-delay: 0.25s;
-	cursor: default;
-	position: relative;
-	height: 16rem;
-	width: 16rem;
-	box-shadow: 0 2rem 4rem 0.25rem rgba(46, 43, 55, 0.575);
-	top: -8rem;
-}
 
 	#wrapper {
 		display: -moz-flex;
