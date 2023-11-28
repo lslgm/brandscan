@@ -50,7 +50,9 @@
                 <header>
                     <h2>스캔하신 브랜드는 <strong th:text="${brandDTO.name}"></strong>로 판별 됩니다.</h2>
                 </header>
-                <p>해당 브랜드의 정보가 맞으시면 <strong>상세 정보</strong> 확인하기를 통하여 당신이 모르던 브랜드 정보를 알아보세요.</p>
+                <p>해당 브랜드의 정보가 맞으시면 <strong>상세 정보</strong> 확인하기를 통하여<br>
+                    당신이 모르던 브랜드 정보를 알아보세요.
+                </p>
                 <a th:href="@{/brand/detail(id=${brandDTO.id})}" class="button large scrolly">상세 정보 확인하기</a>
                 <a th:href="@{/}" class="button large scrolly">다른 브랜드 찾기</a>
             </div>

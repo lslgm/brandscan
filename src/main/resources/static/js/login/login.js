@@ -7,15 +7,6 @@ This is just the HTML / CSS of it but it uses wordpress's login system.
 Nice and Simple
 
 */
-$(document).ready(function(){
-    //작업할내용
-    var errorMessage ="[[${errorMessage}]]";
-    //서버로부터 errorMessage값을 받아서 저장 model.addAttribute("errorMessage",errorMessage)
-    //-전달받은 오류메시지가 있으면
-    if(errorMessage.length > 0) {
-        alert(errorMessage);
-    }
-});
 //가입확인
 function signUpCheck() {
     let password = document.getElementById("password").value

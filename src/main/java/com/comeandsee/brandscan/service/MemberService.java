@@ -60,7 +60,6 @@ public class MemberService implements UserDetailsService {
                 .email(memberDTO.getEmail())
                 .name(memberDTO.getName())
                 .password(password)
-                .tel(memberDTO.getTel())
                 .build();
         memberDTO.setState(MemberRole.USER);
         memberRepository.save(memberEntity);
