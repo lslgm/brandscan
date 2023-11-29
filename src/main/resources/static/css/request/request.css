@@ -61,6 +61,21 @@ p {
     color: red;
     font-size: 12px;
 }
+input[type=file]::file-selector-button{
+    background: #262e49;
+    border: 0;
+    border-radius: 5px;
+    width: 18%;
+    outline: none;
+    color: #d6d6d6;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+    resize: none;
+}
+
 .box input[type = "text"],.form-control{
     display: block;
     margin: 20px auto;

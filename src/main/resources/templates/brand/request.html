@@ -27,7 +27,8 @@
             <p class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" ></p>
             <textarea class="form-control" rows="8" id="content"   placeholder="추가적인 내용을 입력하세요." th:field="*{content}"></textarea>
             <div class="form-check mb-3">
-                <input type="file" class="form-control" id="imgPath"  th:field="*{imageFile}" >
+
+                <input  type="file" class="form-control" id="imgPath" name="imgPath"  th:field="*{imageFile}" accept=".jpg, .png" >
             </div>
 
             <input type="submit" value="요청등록" class="btn1" onclick="imgerror()">
@@ -36,7 +37,5 @@
     </div>
 
 </div>
-
-
 </body>
 </html>
