@@ -1,5 +1,6 @@
 package com.comeandsee.brandscan.service;
 
+import com.amazonaws.services.ec2.model.VolumeDetail;
 import com.comeandsee.brandscan.dto.MemberDTO;
 import com.comeandsee.brandscan.dto.PageDTO;
 import com.comeandsee.brandscan.entity.MemberEntity;
@@ -60,8 +61,8 @@ public class MemberService implements UserDetailsService {
                 .email(memberDTO.getEmail())
                 .name(memberDTO.getName())
                 .password(password)
+                .role(MemberRole.USER)
                 .build();
-        memberDTO.setState(MemberRole.USER);
         memberRepository.save(memberEntity);
     }
 
@@ -72,6 +73,12 @@ public class MemberService implements UserDetailsService {
         if (findMember != null) { //이미 이메일이 존재하면
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
+    }
+
+    public MemberDTO chekEmail(String email){
+        MemberEntity findMember =  memberRepository.findByEmail(email);
+        MemberDTO memberDTO = modelMapper.map(findMember,MemberDTO.class);
+        return memberDTO;
     }
 
     /* 관리자 기능 */

@@ -18,28 +18,27 @@
         <link th:href="@{/css/login/join.css}" rel="stylesheet">
     </th:block>
     <th:block layout:fragment="script">
-        <script th:src="@{/js/login/join.js}"></script>
         <script th:src="@{/js/login/login.js}"></script>
     </th:block>
 </head>
 <body>
 <div>
     <div class="panel shadow1">
-        <form class="login-form" th:action="@{/user/join}" method="post" th:object="${memberDTO}">
+        <form id="join-form" class="login-form" th:action="@{/user/join}" method="post" th:object="${memberDTO}">
             <h1 class="animated fadeInUp animate1 " id="title-signup">Welcome !</h1>
             <fieldset id="login-fieldset">
                 <input class="login animated fadeInUp animate2" id="email"  name="email" type="text"     placeholder="이메일" th:field="*{email}" >
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></p>
-
-                <input class="login animated fadeInUp animate2" id="name" name="name" type="text"    placeholder="성함" th:field="*{name}" >
+                <p th:unless="${errorMessage==null}"   th:text="${errorMessage}" id="error" name="error"></p>
+                <input class="login animated fadeInUp animate3" id="name" name="name" type="text"    placeholder="성함" th:field="*{name}" >
                 <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 
                 <input class="login animated fadeInUp animate3" id="password" name="password" type="password"
-                       required placeholder="비밀번호(특수문자 포함 6~12글자여야 합니다.)" th:field="*{password}">
+                        placeholder="비밀번호(특수문자 포함 6~12글자여야 합니다.)" th:field="*{password}">
 
-                <input class="login animated fadeInUp animate3" id="pwdchk" name="pwdchk" type="password" required placeholder="비밀번호 확인">
+                <input class="login animated fadeInUp animate3" id="pwdchk" name="pwdchk" type="password"  placeholder="비밀번호 확인">
             </fieldset>
-            <button type="submit" id="signup-form-submit" class="login_form button animated fadeInUp animate4 " onclick="signUpCheck()">가입</button>
+            <button type="button" id="signup-form-submit" class="login_form button animated fadeInUp animate4 " onclick="signUpCheck()">가입</button>
         </form>
     </div>
 </div>
