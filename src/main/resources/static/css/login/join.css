@@ -23,7 +23,8 @@ body {
     width: 530px;
     max-width: 90%;
     height: 700px;
-    background:url('https://picsum.photos/1000/1500?image=827')  #fff;
+    /*background:url('https://picsum.photos/1000/1500?image=827')  #fff;*/
+    background: url("../../images/join_bg.jpg");
     background-repeat:no-repeat;
     background-position: top center;
     background-size: cover;

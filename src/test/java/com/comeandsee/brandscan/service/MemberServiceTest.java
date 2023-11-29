@@ -2,7 +2,6 @@ package com.comeandsee.brandscan.service;
 
 import com.comeandsee.brandscan.dto.MemberDTO;
 import com.comeandsee.brandscan.dto.PageDTO;
-import com.comeandsee.brandscan.enums.MemberRole;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,13 +33,13 @@ public class MemberServiceTest {
         // Then
         log.info(result.toString());
     }
-    @Test
+	
+	@Test
     public void joinMember() throws Exception {
         MemberDTO memberDTO = MemberDTO.builder()
                 .name("홍길동")
                 .email("hgd@gmail.com")
                 .password("user123!")
-                .memberRole(MemberRole.USER.getDisplayName())
                 .build();
         service.saveMember(memberDTO);
     }

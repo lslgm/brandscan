@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.mock.web.MockMultipartFile;
+
+import java.io.FileInputStream;
 
 @Log4j2
 @SpringBootTest
@@ -38,6 +41,23 @@ public class BrandRequestServiceTest {
     }
 
     @Test
+    @DisplayName(value = "브랜드 요청 목록 조회 by 로그인 사용자 서비스 테스트")
+    public void BrandRequestFindAllByMemberPageServiceTest() throws Exception {
+        // Given
+        String email = "test1@gmail.com";
+        int pageNumber = 1;
+        int pageSize = 10;
+
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
+        // When
+        PageDTO<BrandRequestDTO> result = service.findAllByMember(email, pageRequest);
+
+        // Then
+        log.info(result.toString());
+    }
+
+    @Test
     @DisplayName(value = "브랜드 요청 정보 아이디로 조회 서비스 테스트")
     public void BrandRequestFindByIdServiceTest() {
         // Given
@@ -62,5 +82,30 @@ public class BrandRequestServiceTest {
 
         // Then
         Assertions.assertEquals(result.getState().getCode(), stateCode);
+    }
+
+    @Test
+    @DisplayName(value = "브랜드 등록 요청 서비스 테스트")
+    public void BrandRequestRegisterServiceTest() throws Exception {
+        // Given
+        MockMultipartFile file = new MockMultipartFile(
+                "image",
+                "beanpole.jpg",
+                "image/jpg",
+                new FileInputStream("src/test/resources/images/beanpole.jpg")
+        );
+
+        BrandRequestDTO brandRequestDTO = new BrandRequestDTO();
+        brandRequestDTO.setTitle("테스트 요청 1");
+        brandRequestDTO.setContent("테스트 요청 설명 1");
+        brandRequestDTO.setImageFile(file);
+
+        String email = "test1@gmail.com";
+
+        // When
+        BrandRequestDTO result = service.register(brandRequestDTO, email);
+
+        // Then
+        Assertions.assertEquals(result.getState(), brandRequestDTO.getState());
     }
 }

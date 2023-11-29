@@ -12,6 +12,6 @@ public class BrandScanController {
 
     @GetMapping("/brandscan")
     public String brandScanView() {
-        return "brand/main";
+        return "contents/brandscan/main";
     }
 }

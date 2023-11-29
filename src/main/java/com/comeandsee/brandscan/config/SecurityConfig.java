@@ -30,6 +30,7 @@ public class SecurityConfig {
         // 접근 권한
         http.authorizeHttpRequests((auth)->{
             //auth.requestMatchers("/brand/request").hasRole("USER"); // 사용자 접근 권한
+            auth.requestMatchers("/brand/request", "/user/my_page").hasRole("USER"); // 사용자 접근 권한
             auth.requestMatchers("/management/**").hasRole("ADMIN"); // 관리자 접근 권한
             auth.anyRequest().permitAll();
         });

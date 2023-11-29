@@ -1,15 +1,19 @@
 package com.comeandsee.brandscan.controller;
 
+import com.comeandsee.brandscan.custom.CustomMember;
 import com.comeandsee.brandscan.dto.BrandRequestDTO;
 import com.comeandsee.brandscan.service.BrandRequestService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import static com.comeandsee.brandscan.constants.BrandScanConstant.BRAND_SCAN_USER_MY_PAGE_URL;
 
 @Controller
 public class BrandRequestController {
@@ -31,11 +35,14 @@ public class BrandRequestController {
     @PostMapping("/brand/request")
     public String requestProc(@Valid @ModelAttribute("requestDTO") BrandRequestDTO requestDTO,
                               BindingResult bindingResult,
-                              Model model) throws Exception {
+                              Authentication authentication) throws Exception {
         if (bindingResult.hasErrors()){
             return "brand/request";
         }
-        requestService.register(requestDTO);
-        return "index";
+
+        CustomMember member = (CustomMember) authentication.getPrincipal();
+        requestService.register(requestDTO, member.getEmail());
+
+        return "redirect:" + BRAND_SCAN_USER_MY_PAGE_URL;
     }
 }

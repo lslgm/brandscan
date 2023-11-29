@@ -40,7 +40,7 @@
                 <th:block th:each="page : ${brandRequestPage.pages}">
                     <li class="page-item" th:classappend="${brandRequestPage.pageNumber == page} ? 'active'">
                         <a class="page-link"
-                           th:href="@{/management/brand_request/list(page=${brandRequestPage.pageNumber})}"
+                           th:href="@{/management/brand_request/list(page=${page})}"
                            th:text="${page}">1</a>
                     </li>
                 </th:block>

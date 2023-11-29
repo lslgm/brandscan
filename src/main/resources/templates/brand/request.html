@@ -22,7 +22,7 @@
         <span class="error animated tada" id="msg"></span>
         <form th:action="@{/brand/request}" method="post" enctype="multipart/form-data" name="form1" class="box" th:object="${requestDTO}">
             <h2>브랜드 등록 <span>요청하기</span></h2>
-            <h5>추가 할 브래드의 <span>제품사진</span>이나 <span>로고사진</span>등이 필요합니다. </h5>
+            <h5>추가 할 브랜드의 <span>제품사진</span>이나 <span>로고사진</span>등이 필요합니다. </h5>
             <input type="text" id="title" placeholder="제목을 입력하세요" th:field="*{title}">
             <p class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" ></p>
             <textarea class="form-control" rows="8" id="content"   placeholder="추가적인 내용을 입력하세요." th:field="*{content}"></textarea>

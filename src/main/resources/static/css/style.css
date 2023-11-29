@@ -6,12 +6,20 @@
     width: 10%;
 }
 
+.min-vh-100 {
+    min-height: 100vh;
+}
+
 .ws-break-spaces {
     white-space: break-spaces;
 }
 
 .padding-all-2 {
     padding: 2px;
+}
+
+.padding-bottom-1 {
+    padding-bottom: 1px;
 }
 
 .margin-bottom-1rem {
@@ -24,4 +32,19 @@
 
 .box-shadow-inset-transparent {
     box-shadow: inset 0 0 0 transparent;
+}
+
+.table-layout-fixed {
+    table-layout: fixed;
+}
+
+/* bootstrap custom */
+.page-item > .page-link {
+    color: black;
+}
+
+.page-item.active > .page-link {
+    border-color: black;
+    background-color: black;
+    color: white;
 }

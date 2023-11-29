@@ -1,6 +1,6 @@
 package com.comeandsee.brandscan.service;
 
-import com.amazonaws.services.ec2.model.VolumeDetail;
+import com.comeandsee.brandscan.custom.CustomMember;
 import com.comeandsee.brandscan.dto.MemberDTO;
 import com.comeandsee.brandscan.dto.PageDTO;
 import com.comeandsee.brandscan.entity.MemberEntity;
@@ -12,7 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -47,38 +49,30 @@ public class MemberService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        return User.builder()
-                .username(memberEntity.getName())
-                .password(memberEntity.getPassword())
-                .roles(memberEntity.getRole().toString())
-                .build();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(memberEntity.getRole().getRole()));
+
+        return new CustomMember(memberEntity, authorities);
     }
 
-    public void saveMember(MemberDTO memberDTO)throws Exception{
-        validateDuplicateMember(memberDTO);
+    public void saveMember(MemberDTO memberDTO) {
         String password = passwordEncoder.encode(memberDTO.getPassword());
-        MemberEntity memberEntity = MemberEntity.builder()
-                .email(memberDTO.getEmail())
-                .name(memberDTO.getName())
-                .password(password)
-                .role(MemberRole.USER)
-                .build();
+        memberDTO.setPassword(password);
+        memberDTO.setRole(MemberRole.USER);
+
+        MemberEntity memberEntity = modelMapper.map(memberDTO, MemberEntity.class);
         memberRepository.save(memberEntity);
     }
 
     //이메일중복체크
-    private void validateDuplicateMember(MemberDTO memberDTO) {
+    public boolean validateDuplicateMember(String email) {
         //조회
-        MemberEntity findMember = memberRepository.findByEmail(memberDTO.getEmail());
+        MemberEntity findMember = memberRepository.findByEmail(email);
         if (findMember != null) { //이미 이메일이 존재하면
-            throw new IllegalStateException("이미 가입된 회원입니다.");
+            return false;
         }
-    }
 
-    public MemberDTO chekEmail(String email){
-        MemberEntity findMember =  memberRepository.findByEmail(email);
-        MemberDTO memberDTO = modelMapper.map(findMember,MemberDTO.class);
-        return memberDTO;
+        return true;
     }
 
     /* 관리자 기능 */

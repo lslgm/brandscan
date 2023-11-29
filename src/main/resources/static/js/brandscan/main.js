@@ -38,8 +38,8 @@ function onImageScanClick() {
 
     $.ajax({
         type: "POST",
-        url: "http://13.209.68.221:5000/v1/object-detection/brandscan",
-       // url: "http://13.209.68.221:5000/v1/object-detection/brandscan",
+        url: "http://localhost:5000/v1/object-detection/brandscan",
+        //url: "http://13.209.68.221:5000/v1/object-detection/brandscan",
         data: data,
         contentType: false,
         processData: false,
@@ -49,8 +49,8 @@ function onImageScanClick() {
                 name = response['data'][0]['name'];
                 console.log(name);
             }
-           // location.href = "http://43.202.36.33:8080/brand/result?name=" + name;
             location.href = "http://localhost:8080/brand/result?name=" + name;
+            //location.href = "http://43.202.36.33:8080/brand/result?name=" + name;
         },
         error: (error) => { alert("스캔 오류"); }
     });

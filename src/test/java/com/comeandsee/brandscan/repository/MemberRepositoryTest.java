@@ -34,4 +34,22 @@ public class MemberRepositoryTest {
         // Then
         Assertions.assertEquals(result.getRole(), MemberRole.ADMIN);
     }
+
+    @Test
+    @DisplayName("사용자 계정 생성 테스트")
+    public void userMemberCreateTest() {
+        // Given
+        MemberEntity user = MemberEntity.builder()
+                .email("test1@gmail.com")
+                .name("테스트사용자1")
+                .password(passwordEncoder.encode("test1234"))
+                .role(MemberRole.USER)
+                .build();
+
+        // When
+        MemberEntity result = repository.save(user);
+
+        // Then
+        Assertions.assertEquals(result.getRole(), user.getRole());
+    }
 }

@@ -31,6 +31,10 @@ public class BrandRequestEntity extends BaseEntity {
     @Convert(converter = BrandRequestStateConverter.class)
     private BrandRequestState state;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
+
     @Builder
     public BrandRequestEntity(String title, String content, String imagePath) {
         this.title = title;
