@@ -52,6 +52,7 @@ public class ManagementConstant {
     public final static String MEMBER_TABLE_NAME = "member_tbl";
     public final static String BRAND_TABLE_NAME = "brand_tbl";
     public final static String BRAND_REQUEST_TABLE_NAME = "brand_request_tbl";
+    public final static String BRAND_RETOUCH_TABLE_NAME = "brand_qna_tbl";
 
     // Validation message
     public final static String BRAND_NAME_VALIDATION_MESSAGE = "브랜드명은 필수 입력 값입니다.";

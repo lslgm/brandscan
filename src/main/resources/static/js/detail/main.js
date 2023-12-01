@@ -761,6 +761,3 @@
 
 })(jQuery);
 
-function notImplemented(){
-	window.alert('해당 기능은 개발중 입니다.')
-}
