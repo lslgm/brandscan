@@ -51,8 +51,10 @@
           <span th:text="${brandDTO.description}"></span><br/>
           <br/>
           홈페이지 : <a th:text="${brandDTO.homepage}" th:href="${brandDTO.homepage}" target="_blank"></a> <br>
-          본사 주소 : <span th:text="${brandDTO.address}"></span>
+          본사 주소 : <span th:text="${brandDTO.address}"></span><br>
+          <a th:href="|https://www.google.co.kr/maps/place/${brandDTO.address}|" target="_blank">지도 보기</a>
         </h4>
+
       </div>
       <div class="image filtered tinted" data-position="top right">
         <!--빌딩 이미지 출력-->
@@ -95,5 +97,7 @@
 <script th:src="@{/js/detail/browser.min.js}"></script>
 <script th:src="@{/js/detail/breakpoints.min.js}"></script>
 <script th:src="@{/js/detail/main.js}"></script>
+
+</script>
 </body>
 </html>
