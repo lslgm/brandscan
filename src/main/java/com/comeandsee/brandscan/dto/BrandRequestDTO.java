@@ -1,6 +1,5 @@
 package com.comeandsee.brandscan.dto;
 
-import com.comeandsee.brandscan.entity.MemberEntity;
 import com.comeandsee.brandscan.enums.BrandRequestState;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -26,7 +25,7 @@ public class BrandRequestDTO {
     // Custom
     private String stateToDisplay;
     private MultipartFile imageFile;
-    private MemberEntity member;
+    private MemberDTO member;
 
     public void setState(BrandRequestState state) {
         this.state = state;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/management/base_layout}">
+<head>
+    <title>[관리자 전용] - 브랜드 수정 요청 목록</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">요청 제목</th>
+                    <th scope="col" class="width-10p">수정일</th>
+                    <th scope="col" class="width-10p">등록일</th>
+                    <th scope="col" class="width-10p"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="align-middle" th:each="brandRetouch : ${brandRetouchPage.dataList}">
+                    <th scope="row" th:text="${brandRetouch.id}">1</th>
+                    <td th:text="${brandRetouch.title}">요청 제목</td>
+                    <td th:text="${#temporals.format(brandRetouch.updatedAt, 'yyyy-MM-dd')}">수정일</td>
+                    <td th:text="${#temporals.format(brandRetouch.createdAt, 'yyyy-MM-dd')}">등록일</td>
+                    <td>
+                        <a type="button" class="btn btn-light" role="button"
+                           th:href="@{/management/brand_retouch/detail(id=${brandRetouch.id})}">상세보기</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${brandRetouchPage.hasPrev}">
+                    <a class="page-link"
+                       th:href="@{/management/brand_retouch/list(page=${brandRetouchPage.pageNumber - 1})}">Previous</a>
+                </li>
+                <th:block th:each="page : ${brandRetouchPage.pages}">
+                    <li class="page-item" th:classappend="${brandRetouchPage.pageNumber == page} ? 'active'">
+                        <a class="page-link"
+                           th:href="@{/management/brand_retouch/list(page=${page})}"
+                           th:text="${page}">1</a>
+                    </li>
+                </th:block>
+                <li class="page-item" th:if="${brandRetouchPage.hasNext}">
+                    <a class="page-link"
+                       th:href="@{/management/brand_retouch/list(page=${brandRetouchPage.pageNumber + 1})}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </th:block>
+</body>
+</html>

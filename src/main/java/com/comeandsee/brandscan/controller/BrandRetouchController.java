@@ -1,8 +1,10 @@
 package com.comeandsee.brandscan.controller;
 
+import com.comeandsee.brandscan.custom.CustomMember;
 import com.comeandsee.brandscan.dto.BrandRetouchDTO;
 import com.comeandsee.brandscan.service.BrandRetouchService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,11 +31,14 @@ public class BrandRetouchController {
 
     @PostMapping("/brand/retouch")
     public String retouchProc(@Valid @ModelAttribute("brandRetouchDTO") BrandRetouchDTO brandRetouchDTO,
-                              BindingResult bindingResult,Model model){
+                              BindingResult bindingResult,
+                              Authentication authentication) throws Exception {
         if(bindingResult.hasErrors()){
             return "/brand/retouch";
         }
-        brandRetouchService.register(brandRetouchDTO);
+
+        CustomMember member = (CustomMember) authentication.getPrincipal();
+        brandRetouchService.register(brandRetouchDTO, member.getEmail());
 
         return "redirect:" + BRAND_SCAN_USER_MY_PAGE_URL;
     }

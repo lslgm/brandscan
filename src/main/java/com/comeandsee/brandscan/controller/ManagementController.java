@@ -1,12 +1,7 @@
 package com.comeandsee.brandscan.controller;
 
-import com.comeandsee.brandscan.dto.BrandDTO;
-import com.comeandsee.brandscan.dto.BrandRequestDTO;
-import com.comeandsee.brandscan.dto.MemberDTO;
-import com.comeandsee.brandscan.dto.PageDTO;
-import com.comeandsee.brandscan.service.BrandRequestService;
-import com.comeandsee.brandscan.service.BrandService;
-import com.comeandsee.brandscan.service.MemberService;
+import com.comeandsee.brandscan.dto.*;
+import com.comeandsee.brandscan.service.*;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +24,22 @@ import static com.comeandsee.brandscan.constants.ManagementConstant.*;
 public class ManagementController {
     private final BrandService brandService;
     private final BrandRequestService brandRequestService;
+    private final BrandRetouchService brandRetouchService;
+    private final BrandRetouchReplyService brandRetouchReplyService;
     private final MemberService memberService;
 
     @Autowired
-    public ManagementController(BrandService brandService, BrandRequestService brandRequestService, MemberService memberService) {
+    public ManagementController(
+            BrandService brandService,
+            BrandRequestService brandRequestService,
+            BrandRetouchService brandRetouchService,
+            BrandRetouchReplyService brandRetouchReplyService,
+            MemberService memberService)
+    {
         this.brandService = brandService;
         this.brandRequestService = brandRequestService;
+        this.brandRetouchService = brandRetouchService;
+        this.brandRetouchReplyService = brandRetouchReplyService;
         this.memberService = memberService;
     }
 
@@ -46,7 +51,7 @@ public class ManagementController {
 
     // Brand Request
     @GetMapping(value = MANAGEMENT_BRAND_REQUEST_LIST_URL)
-    public String brandRequestView(@PageableDefault(page = 1) Pageable pageable, Model model) {
+    public String brandRequestListView(@PageableDefault(page = 1) Pageable pageable, Model model) {
         PageDTO<BrandRequestDTO> brandRequestPage = brandRequestService.findAllWithPage(pageable);
 
         model.addAttribute("brandRequestPage", brandRequestPage);
@@ -116,9 +121,54 @@ public class ManagementController {
         BrandDTO brand = brandService.updateById(brandDTO);
         redirectAttributes.addAttribute("id", brand.getId());
         redirectAttributes.addFlashAttribute("message", BRAND_UPDATE_SUCCESS_MESSAGE);
-        redirectAttributes.addFlashAttribute("redirectUrl", MANAGEMENT_BRAND_LIST_URL);
 
         return "redirect:" + MANAGEMENT_BASE_URL + "/" + MANAGEMENT_BRAND_DETAIL_URL;
+    }
+
+    // Brand retouch
+    @GetMapping(value = MANAGEMENT_BRAND_RETOUCH_LIST_URL)
+    public String brandRetouchListView(@PageableDefault(page = 1) Pageable pageable, Model model) {
+        PageDTO<BrandRetouchDTO> brandRetouchPage = brandRetouchService.findAllWithPage(pageable);
+        model.addAttribute("brandRetouchPage", brandRetouchPage);
+
+        return MANAGEMENT_BRAND_RETOUCH_LIST_VIEW;
+    }
+
+    @GetMapping(value = MANAGEMENT_BRAND_RETOUCH_DETAIL_URL)
+    public String brandRetouchDetailView(Long id, Model model) {
+        BrandRetouchDTO brandRetouch = brandRetouchService.findById(id);
+        BrandRetouchReplyDTO reply = brandRetouch.getReply() != null ? brandRetouch.getReply() : new BrandRetouchReplyDTO();
+
+        model.addAttribute("brandRetouch", brandRetouch);
+        model.addAttribute("reply", reply);
+
+        return MANAGEMENT_BRAND_RETOUCH_DETAIL_VIEW;
+    }
+
+    @PostMapping(value = MANAGEMENT_BRAND_RETOUCH_DETAIL_URL)
+    public String brandRetouchDetailProcess(
+            Long id,
+            @Valid @ModelAttribute("reply") BrandRetouchReplyDTO reply,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes)
+    {
+        BrandRetouchDTO brandRetouch = brandRetouchService.findById(id);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("brandRetouch", brandRetouch);
+            return MANAGEMENT_BRAND_RETOUCH_DETAIL_VIEW;
+        }
+
+        reply.setId(null);   // 수정 요청 아이디와 겹침 방지
+
+        BrandRetouchReplyDTO savedReply = brandRetouchReplyService.register(reply);
+        brandRetouch.setReply(savedReply);
+
+        brandRetouchService.update(brandRetouch);
+        redirectAttributes.addAttribute("id", brandRetouch.getId());
+        redirectAttributes.addFlashAttribute("message", BRAND_RETOUCH_REPLY_UPDATE_SUCCESS_MESSAGE);
+
+        return "redirect:" + MANAGEMENT_BASE_URL + "/" + MANAGEMENT_BRAND_RETOUCH_DETAIL_URL;
     }
 
     // Admin member

@@ -2,9 +2,11 @@ package com.comeandsee.brandscan.controller;
 
 import com.comeandsee.brandscan.custom.CustomMember;
 import com.comeandsee.brandscan.dto.BrandRequestDTO;
+import com.comeandsee.brandscan.dto.BrandRetouchDTO;
 import com.comeandsee.brandscan.dto.MemberDTO;
 import com.comeandsee.brandscan.dto.PageDTO;
 import com.comeandsee.brandscan.service.BrandRequestService;
+import com.comeandsee.brandscan.service.BrandRetouchService;
 import com.comeandsee.brandscan.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -28,11 +30,17 @@ import static com.comeandsee.brandscan.constants.BrandScanConstant.BRAND_SCAN_US
 public class MemberController {
     private final MemberService memberService;
     private final BrandRequestService brandRequestService;
+    private final BrandRetouchService brandRetouchService;
 
     @Autowired
-    public MemberController(MemberService memberService, BrandRequestService brandRequestService) {
+    public MemberController(
+            MemberService memberService,
+            BrandRequestService brandRequestService,
+            BrandRetouchService brandRetouchService)
+    {
         this.memberService = memberService;
         this.brandRequestService = brandRequestService;
+        this.brandRetouchService = brandRetouchService;
     }
 
     @GetMapping("/user/login")
@@ -75,13 +83,20 @@ public class MemberController {
     @GetMapping(BRAND_SCAN_USER_MY_PAGE_URL)
     public String myPageView(
             Authentication authentication,
+            String query,
             @PageableDefault(page = 1) Pageable pageable,
             Model model) throws Exception {
         CustomMember member = (CustomMember) authentication.getPrincipal();
         String email = member.getEmail();
-        PageDTO<BrandRequestDTO> brandRequestPage = brandRequestService.findAllByMember(email, pageable);
 
-        model.addAttribute("brandRequestPage", brandRequestPage);
+        if (query == null || query.equals("brand_request")) {
+            PageDTO<BrandRequestDTO> brandRequestPage = brandRequestService.findAllByMember(email, pageable);
+            model.addAttribute("brandRequestPage", brandRequestPage);
+        } else if (query.equals("brand_retouch_request")) {
+            PageDTO<BrandRetouchDTO> brandRetouchPage = brandRetouchService.findAllByMember(email, pageable);
+            model.addAttribute("brandRetouchPage", brandRetouchPage);
+        }
+
         model.addAttribute("email", email);
         model.addAttribute("createdAt", member.getCreatedAt());
 

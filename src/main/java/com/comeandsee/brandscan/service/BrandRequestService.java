@@ -1,6 +1,7 @@
 package com.comeandsee.brandscan.service;
 
 import com.comeandsee.brandscan.dto.BrandRequestDTO;
+import com.comeandsee.brandscan.dto.MemberDTO;
 import com.comeandsee.brandscan.dto.PageDTO;
 import com.comeandsee.brandscan.entity.BrandRequestEntity;
 import com.comeandsee.brandscan.entity.MemberEntity;
@@ -124,7 +125,7 @@ public class BrandRequestService {
 
                 brandRequestDTO.setImagePath(uploadUrl);
                 brandRequestDTO.setState(BrandRequestState.REQUEST);
-                brandRequestDTO.setMember(member);
+                brandRequestDTO.setMember(modelMapper.map(member, MemberDTO.class));
 
                 BrandRequestEntity requestEntity = modelMapper.map(brandRequestDTO, BrandRequestEntity.class);
                 BrandRequestEntity result = brandRequestRepository.save(requestEntity);

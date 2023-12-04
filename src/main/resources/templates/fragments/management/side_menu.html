@@ -10,46 +10,57 @@
                 </svg>
                 <span class="fs-4 d-none d-sm-inline ms-3">Brand Scan</span>
             </a>
-            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                <li>
-                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+            <ul class="list-unstyled ps-0 mb-sm-auto">
+                <li class="mb-1">
+                    <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ps-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#member-menu" aria-expanded="false" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
                             <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
                         </svg>
-                        <i class="fs-4 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">회원 관리</span>
+                        <i class="fs-4 bi-speedometer2"></i><span class="ms-2 d-none d-sm-inline">회원 관리</span>
                     </a>
-                    <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                        <li class="w-100">
-                            <a th:href="@{/management/member/list(role='admin')}" class="nav-link px-0 text-white">
-                                <span class="d-none d-sm-inline ps-3">관리자</span>
-                            </a>
-                        </li>
-                        <li class="w-100">
-                            <a th:href="@{/management/member/list(role='user')}" class="nav-link px-0 text-white">
-                                <span class="d-none d-sm-inline ps-3">사용자</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="collapse" id="member-menu" style="">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li>
+                                <a th:href="@{/management/member/list(role='admin')}" class="nav-link px-0 text-white">
+                                    <span class="d-none d-sm-inline ps-3">관리자</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/management/member/list(role='user')}" class="nav-link px-0 text-white">
+                                    <span class="d-none d-sm-inline ps-3">사용자</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li>
-                    <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+                <li class="mb-1">
+                    <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ps-0 collapsed"
+                       data-bs-toggle="collapse" data-bs-target="#brand-menu" aria-expanded="false" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-collection" viewBox="0 0 16 16">
                             <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5z"/>
                         </svg>
-                        <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">브랜드 관리</span>
+                        <i class="fs-4 bi-speedometer2"></i> <span class="ms-2 d-none d-sm-inline">브랜드 관리</span>
                     </a>
-                    <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                        <li class="w-100">
-                            <a th:href="@{/management/brand/list}" class="nav-link px-0 text-white">
-                                <span class="d-none d-sm-inline ps-3">브랜드</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/management/brand_request/list}" class="nav-link px-0 text-white">
-                                <span class="d-none d-sm-inline ps-3">브랜드 요청</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="collapse" id="brand-menu" style="">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li>
+                                <a th:href="@{/management/brand/list}" class="nav-link px-0 text-white">
+                                    <span class="d-none d-sm-inline ps-3">브랜드</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/management/brand_request/list}" class="nav-link px-0 text-white">
+                                    <span class="d-none d-sm-inline ps-3">브랜드 요청</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/management/brand_retouch/list}" class="nav-link px-0 text-white">
+                                    <span class="d-none d-sm-inline ps-3">브랜드 수정 요청</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <hr>

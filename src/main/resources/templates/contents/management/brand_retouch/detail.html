@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/management/base_layout}">
+<head>
+    <title>[관리자 전용] - 브랜드 수정 요청 정보</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="main-card my-3 card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h4 class="card-title" th:text="${brandRetouch.title}">요청 제목</h4>
+                <div class="d-flex flex-column">
+                    <span th:text="|작성자 : ${brandRetouch.member.email}|">작성자</span>
+                    <span th:text="|수정일 : ${#temporals.format(brandRetouch.updatedAt, 'yyyy-MM-dd HH:mm:ss')}|">수정일</span>
+                    <span th:text="|작성일 : ${#temporals.format(brandRetouch.createdAt, 'yyyy-MM-dd HH:mm:ss')}|">작성일</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="ws-break-spaces" th:text="${brandRetouch.content}">요청 내용</p>
+            </div>
+        </div>
+        <form id="replyForm" method="post" th:object="${reply}">
+            <div class="main-card my-3 card">
+                <div class="card-body">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" th:field="*{content}"></textarea>
+                        <label for="floatingTextarea">답글 작성</label>
+                    </div>
+                    <p class="text-danger pt-2 mb-0" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">답글 작성 오류</p>
+                </div>
+                <div class="d-block text-end card-footer">
+                    <div class="d-flex justify-content-end">
+                        <a type="button" class="btn btn-secondary btn-lg me-1" role="button" th:href="@{/management/brand_retouch/list}">취소</a>
+                        <button type="button" class="btn btn-success btn-lg" th:onclick="onBrandRetouchReplyClick()">답글 저장</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </th:block>
+
+    <!-- Scripts -->
+    <th:block layout:fragment="scripts">
+        <script th:src="@{/js/management/brand_retouch.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const message = [[${message}]]
+            if (message != null && message.length > 0) {
+                alert(message);
+                location.reload();
+            }
+            /*]]>*/
+        </script>
+    </th:block>
+</body>
+</html>

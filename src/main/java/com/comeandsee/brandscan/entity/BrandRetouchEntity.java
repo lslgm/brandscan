@@ -11,15 +11,20 @@ import static com.comeandsee.brandscan.constants.ManagementConstant.BRAND_RETOUC
 public class BrandRetouchEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "qna_id")
+    @Column(name = "retouch_id")
     private Long id;
 
     @Column(nullable = false)
     private String title;
 
+    @Lob
     private String content;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private MemberEntity memberEntity;*/
+    private MemberEntity member;
+
+    @OneToOne
+    @JoinColumn(name = "reply_id")
+    private BrandRetouchReplyEntity reply;
 }

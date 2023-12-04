@@ -31,8 +31,8 @@ public class PageDTO<T> {
         this.hasNext = hasNext;
 
         // 기본 페이지 수 : 10
-        int startPage = Math.max(pageNumber - 9, 1);
-        int endPage = Math.min(pageNumber + 9, this.totalPage);
+        int startPage = (((int) Math.ceil((double) this.pageNumber / 10)) - 1) * 10 + 1;
+        int endPage = Math.min(startPage + 9, this.totalPage);
 
         this.pages = IntStream.rangeClosed(startPage, endPage)
                 .boxed().collect(Collectors.toList());

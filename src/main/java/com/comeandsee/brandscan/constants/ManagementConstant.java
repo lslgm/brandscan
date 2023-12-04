@@ -5,6 +5,7 @@ public class ManagementConstant {
         URLs
         - Brand
         - Brand request
+        - Brand retouch
         - Member
     */
     public final static String MANAGEMENT_BASE_URL = "/management";
@@ -20,6 +21,11 @@ public class ManagementConstant {
     public final static String MANAGEMENT_BRAND_REQUEST_LIST_URL = MANAGEMENT_BRAND_REQUEST_URL + "/list";
     public final static String MANAGEMENT_BRAND_REQUEST_DETAIL_URL = MANAGEMENT_BRAND_REQUEST_URL + "/detail";
 
+    // Brand retouch
+    public final static String MANAGEMENT_BRAND_RETOUCH_URL = "brand_retouch";
+    public final static String MANAGEMENT_BRAND_RETOUCH_LIST_URL = MANAGEMENT_BRAND_RETOUCH_URL + "/list";
+    public final static String MANAGEMENT_BRAND_RETOUCH_DETAIL_URL = MANAGEMENT_BRAND_RETOUCH_URL + "/detail";
+
     // Member
     public final static String MANAGEMENT_MEMBER_URL = "member";
     public final static String MANAGEMENT_MEMBER_LIST_URL = MANAGEMENT_MEMBER_URL + "/list";
@@ -28,6 +34,7 @@ public class ManagementConstant {
         Views
         - Brand
         - Brand request
+        - Brand retouch
         - Member
      */
     public final static String MANAGEMENT_BASE_VIEW = "contents/management";
@@ -43,6 +50,11 @@ public class ManagementConstant {
     public final static String MANAGEMENT_BRAND_REQUEST_LIST_VIEW = MANAGEMENT_BRAND_REQUEST_VIEW + "/list";
     public final static String MANAGEMENT_BRAND_REQUEST_DETAIL_VIEW = MANAGEMENT_BRAND_REQUEST_VIEW + "/detail";
 
+    // Brand retouch
+    public final static String MANAGEMENT_BRAND_RETOUCH_VIEW = MANAGEMENT_BASE_VIEW + "/brand_retouch";
+    public final static String MANAGEMENT_BRAND_RETOUCH_LIST_VIEW = MANAGEMENT_BRAND_RETOUCH_VIEW + "/list";
+    public final static String MANAGEMENT_BRAND_RETOUCH_DETAIL_VIEW = MANAGEMENT_BRAND_RETOUCH_VIEW + "/detail";
+
     // Member
     public final static String MANAGEMENT_MEMBER_VIEW = MANAGEMENT_BASE_VIEW + "/member";
     public final static String MANAGEMENT_MEMBER_LIST_VIEW = MANAGEMENT_MEMBER_VIEW + "/list";
@@ -52,13 +64,16 @@ public class ManagementConstant {
     public final static String MEMBER_TABLE_NAME = "member_tbl";
     public final static String BRAND_TABLE_NAME = "brand_tbl";
     public final static String BRAND_REQUEST_TABLE_NAME = "brand_request_tbl";
-    public final static String BRAND_RETOUCH_TABLE_NAME = "brand_qna_tbl";
+    public final static String BRAND_RETOUCH_TABLE_NAME = "brand_retouch_tbl";
+    public final static String BRAND_RETOUCH_REPLY_TABLE_NAME = "brand_retouch_reply_tbl";
 
     // Validation message
-    public final static String BRAND_NAME_VALIDATION_MESSAGE = "브랜드명은 필수 입력 값입니다.";
+    public final static String BRAND_NAME_VALIDATION_MESSAGE = "브랜드명은 필수 입력 값 입니다.";
+    public final static String BRAND_RETOUCH_CONTENT_VALIDATION_MESSAGE = "답글은 필수 입력 값 입니다.";
 
     // Response message
     public final static String BRAND_UPDATE_SUCCESS_MESSAGE = "성공적으로 수정 하였습니다.";
+    public final static String BRAND_RETOUCH_REPLY_UPDATE_SUCCESS_MESSAGE = "성공적으로 수정 하였습니다.";
 
     // Error message
     public final static String NOT_FOUND_TYPE_ERROR_MESSAGE = "존재 하지 않는 유형 입니다.";
