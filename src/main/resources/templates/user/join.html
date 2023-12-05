@@ -45,7 +45,8 @@
                 <input class="login" id="pwdchk" name="pwdchk" type="password"  placeholder="비밀번호 확인">
             </fieldset>
             <!--<button type="button" id="signup-form-submit" class="login_form button animated fadeInUp animate4 " onclick="signUpCheck()">가입</button>-->
-            <button type="button" id="signup-form-submit" class="login_form button" onclick="signUpCheck()">가입</button>
+            <button type="button" id="signup-form-submit" class="login_form button" onclick="signUpCheck()">가입</button> <br>
+            <a th:href="@{/}">가입취소</a>
         </form>
     </div>
 </div>
@@ -63,39 +64,5 @@
     /*]]>*/
 </script>
 
-<!--<div layout:fragment="content">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
-            <h2>회원 가입</h2>
-            <form th:action="@{/user/join}" method="post" th:object="${memberDTO}">
-                <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">이메일:</label>
-                    <input type="email" class="form-control" id="email"  name="email" th:field="*{email}">
-                </div>
-
-
-                <div class="mb-3 mt-3">
-                    <label for="name" class="form-label">이름:</label>
-                    <input type="text" class="form-control" id="name"  name="name" th:field="*{name}">
-                </div>
-                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">비밀번호:</label>
-                    <input type="password" class="form-control" id="password"  name="password"
-                           placeholder="특수문자 포함 6~12글자여야 합니다."   th:field="*{password}" >
-                </div>
-                <div id="passwordError" class="error"></div>
-                <div class="mb-3">
-                    <label for="pwdchk" class="form-label">비밀번호 확인:</label>
-                    <input type="password" class="form-control" id="pwdchk" >
-                </div>
-                <button type="submit" class="btn btn-primary" onclick="signUpCheck()">Submit</button>
-            </form>
-        </div>
-        <div class="col"></div>
-    </div>
-</div>-->
 </body>
 </html>

@@ -17,7 +17,7 @@ public class BrandEntity extends BaseEntity{
     @Column(nullable = false,length = 50)
     private String name; //브랜드 명
 
-    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String description; //브랜드 설명
 
     @Column(name = "establish_year")
