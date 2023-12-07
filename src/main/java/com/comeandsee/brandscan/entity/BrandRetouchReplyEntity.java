@@ -12,6 +12,6 @@ public class BrandRetouchReplyEntity extends BaseEntity {
     @Column(name = "reply_id")
     private Long id;
 
-    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
 }

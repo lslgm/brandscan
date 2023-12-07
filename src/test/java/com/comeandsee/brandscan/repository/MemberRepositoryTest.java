@@ -24,7 +24,7 @@ public class MemberRepositoryTest {
         MemberEntity admin = MemberEntity.builder()
                 .email("brandscan@gmail.com")
                 .name("관리자")
-                .password(passwordEncoder.encode("admin1234"))
+                .password(passwordEncoder.encode("admin1234!"))
                 .role(MemberRole.ADMIN)
                 .build();
 

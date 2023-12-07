@@ -7,11 +7,11 @@
 <body>
     <th:block layout:fragment="content">
         <a type="button" class="btn btn-primary" role="button" th:href="@{/management/brand/register}">브랜드 등록</a>
-        <table class="table mt-3">
+        <table class="table table-layout-fixed mt-3">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">브랜드명</th>
+                    <th scope="col" class="col-sm-1">#</th>
+                    <th scope="col" class="col-sm-1">브랜드명</th>
                     <th scope="col">주소</th>
                     <th scope="col">홈페이지</th>
                     <th scope="col" class="width-10p">등록일</th>
@@ -23,7 +23,9 @@
                     <th scope="row" th:text="${brand.id}">1</th>
                     <td th:text="${brand.name}">브랜드명</td>
                     <td th:text="${brand.address}">주소</td>
-                    <td th:text="${brand.homepage}">홈페이지</td>
+                    <td>
+                        <a class="d-block text-truncate" target="_blank" th:href="${brand.homepage}" th:text="${brand.homepage}" th:title="${brand.homepage}">홈페이지</a>
+                    </td>
                     <td th:text="${#temporals.format(brand.createdAt, 'yyyy-MM-dd')}">등록일</td>
                     <td>
                         <a type="button" class="btn btn-light" role="button"

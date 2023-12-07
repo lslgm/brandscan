@@ -22,7 +22,7 @@ public class BrandRequestEntity extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
 
     @Column(nullable = false)
