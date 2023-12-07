@@ -24,7 +24,7 @@ section, summary, time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-	word-break: keep-all;
+
 }
 
 article, aside, details, figcaption, figure,
@@ -2259,10 +2259,10 @@ input, select, textarea {
 
 		.panel > .intro {
 			padding: 3.5rem 3.5rem 2rem 3.5rem ;
-			display: -moz-flex;
+			/*display: -moz-flex;
 			display: -webkit-flex;
-			display: -ms-flex;
-			display: flex;
+			display: -ms-flex;*/
+			display: block;
 			-moz-flex-grow: 0;
 			-webkit-flex-grow: 0;
 			-ms-flex-grow: 0;
@@ -2284,8 +2284,30 @@ input, select, textarea {
 			-ms-flex-direction: column;
 			flex-direction: column;
 			width: 30rem;
-		}
+			/*word-break: break-all;*/
 
+		}
+		.home{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			position: relative;
+			top: 11rem;
+		}
+		.address{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			position: relative;
+			top: 14rem;
+		}
+		.features{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			position: relative;
+			top: 10rem;
+}
 			.panel > .intro.joined {
 				width: 18.5rem;
 				padding-right: 0;
@@ -2515,6 +2537,7 @@ input, select, textarea {
 
 		.panel .span-8 {
 			width: 80rem;
+			word-break: keep-all;
 		}
 
 		.panel .span-8-25 {
@@ -2560,7 +2583,9 @@ input, select, textarea {
 		.panel.large {
 			width: 65rem;
 		}
-
+		.panel.all {
+		width: 78rem;
+		}
 		.panel.small .span-0-25, .panel.medium .span-0-25, .panel.large .span-0-25 {
 			width: 2.5%;
 		}
@@ -3595,10 +3620,10 @@ input, select, textarea {
 	transition-delay: 0.25s;
 	cursor: default;
 	position: relative;
-	height: 16rem;
-	width: 16rem;
+	height: 20rem;
+	width: 20rem;
 	box-shadow: 0 2rem 4rem 0.25rem rgba(46, 43, 55, 0.575);
-	top: -8rem;
+	top: -10rem;
 }
 
 	#wrapper {
@@ -3620,7 +3645,7 @@ input, select, textarea {
 		transition-delay: 0.25s;
 		cursor: default;
 		position: relative;
-		height: 32rem;
+		height: 40rem;
 		box-shadow: 0 2rem 4rem 0.25rem rgba(46, 43, 55, 0.575);
 	}
 

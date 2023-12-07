@@ -23,8 +23,9 @@ public class BrandRetouchController {
     }
 
     @GetMapping("/brand/retouch")
-    public String retouchForm(Model model){
+    public String retouchForm(Model model,Long id){
         BrandRetouchDTO brandRetouchDTO = new BrandRetouchDTO();
+        model.addAttribute("id",id);
         model.addAttribute("brandRetouchDTO",brandRetouchDTO);
         return "/brand/retouch";
     }

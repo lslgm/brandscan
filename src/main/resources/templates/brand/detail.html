@@ -42,8 +42,8 @@
     </section>
 
     <!-- Panel (Spotlight) -->
-    <section class="panel spotlight medium left" id="first">
-      <div class="content color0 span-6">
+    <section class="panel spotlight all left" id="first">
+      <div class="content color0 span-8">
         <h2 class="major">브랜드 명: <span th:text="${brandDTO.name}"></span></h2>
         <h4>
           설립 연도 : <span th:text="${brandDTO.year}"></span>년<br/>
@@ -60,24 +60,30 @@
       </div>
     </section>
     <!-- 지도 AIP 추가시 활성화 -->
-    <section class="panel spotlight small right">
-      <div class="contentadd color1 span-8">
+    <section class="panel color2-alt">
+      <div class="intro color1">
+        <div class="home" th:title="${brandDTO.homepage}">
          <h3>홈페이지 :</h3>
-          <a th:text="${brandDTO.homepage}" th:href="${brandDTO.homepage}" target="_blank"></a> <br>
+          <a th:text="${brandDTO.homepage}" th:href="${brandDTO.homepage}" target="_blank"></a>
+        </div>
+        <div class="address" th:title="${brandDTO.address}">
         <h3>본사 주소 :</h3>
-          <span th:text="${brandDTO.address}"></span><br>
-          <a th:href="|https://www.google.co.kr/maps/place/${brandDTO.address}|" target="_blank">지도 보기</a>
-      </div>
-      <div class="image filtered tinted" data-position="top left">
+          <span th:text="${brandDTO.address}"></span>
+          <ul class="actions">
+            <li><a th:href="|https://www.google.co.kr/maps/place/${brandDTO.address}|" class="button" target="_blank">지도 보기</a></li>
+          </ul>
+        </div>
       </div>
     </section>
+
     <!-- Panel -->
-    <section class="panel color2-alt">
+      <section class="panel color2-alt">
       <div class="intro color2">
+        <div class="features">
         <h4 class="major">수정 요청</h4>
         <h5>정보가 잘못 되었다면 수정을 요청 하시길 바랍니다.</h5>
         <ul class="actions">
-          <li><a th:href="@{/brand/retouch}" class="button primary color2 icon solid fa-cog">수정 요청</a></li>
+          <li><a th:href="@{/brand/retouch(id=${brandDTO.id})}"   class="button primary color2 icon solid fa-cog">수정 요청</a></li>
         </ul>
 
         <h4 class="major">다시 스캔</h4>
@@ -85,6 +91,7 @@
         <ul class="actions">
           <li><a th:href="@{/}" class="button primary color2 icon solid fa-gem" >다른 이미지 스캔</a></li>
         </ul>
+        </div>
       </div>
     </section>
     <!-- Copyright -->
