@@ -14,7 +14,7 @@
                 <th scope="col">회원명</th>
                 <th scope="col" class="width-10p">수정일</th>
                 <th scope="col" class="width-10p">등록일</th>
-                <th scope="col" class="width-10p"></th>
+                <!--<th scope="col" class="width-10p"></th>-->
             </tr>
         </thead>
         <tbody>
@@ -24,10 +24,10 @@
                 <td th:text="${member.name}">회원명</td>
                 <td th:text="${#temporals.format(member.updatedAt, 'yyyy-MM-dd')}">수정일</td>
                 <td th:text="${#temporals.format(member.createdAt, 'yyyy-MM-dd')}">등록일</td>
-                <td>
+               <!-- <td>
                     <a type="button" class="btn btn-light" role="button"
                        th:href="@{/management/member/detail(id=${member.id})}">상세보기</a>
-                </td>
+                </td>-->
             </tr>
         </tbody>
     </table>

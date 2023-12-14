@@ -39,7 +39,7 @@ function onImageScanClick() {
     $.ajax({
         type: "POST",
         //url: "http://localhost:5000/v1/object-detection/brandscan",
-        url: "http://13.125.141.130:5000/v1/object-detection/brandscan",
+        url: "http://3.37.88.194:5000/v1/object-detection/brandscan",
         data: data,
         contentType: false,
         processData: false,
@@ -50,7 +50,7 @@ function onImageScanClick() {
                 console.log(name);
             }
             //location.href = "http://localhost:8080/brand/result?name=" + name;
-            location.href = "http://13.125.141.130:8080/brand/result?name=" + name;
+            location.href = "http://3.37.88.194:8080/brand/result?name=" + name;
         },
         error: (error) => { alert("스캔 오류"); }
     });

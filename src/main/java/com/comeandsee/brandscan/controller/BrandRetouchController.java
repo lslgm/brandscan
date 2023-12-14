@@ -27,7 +27,7 @@ public class BrandRetouchController {
         BrandRetouchDTO brandRetouchDTO = new BrandRetouchDTO();
         model.addAttribute("id",id);
         model.addAttribute("brandRetouchDTO",brandRetouchDTO);
-        return "/brand/retouch";
+        return "brand/retouch";
     }
 
     @PostMapping("/brand/retouch")
@@ -35,7 +35,7 @@ public class BrandRetouchController {
                               BindingResult bindingResult,
                               Authentication authentication) throws Exception {
         if(bindingResult.hasErrors()){
-            return "/brand/retouch";
+            return "brand/retouch";
         }
 
         CustomMember member = (CustomMember) authentication.getPrincipal();
